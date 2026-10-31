@@ -28,7 +28,7 @@ The APK has not been built or device-tested in this environment because Unity an
 
 ## Build on GitHub Actions
 
-The workflow at `.github/workflows/android-build.yml` builds an APK after each push to `main`, or when started manually from the repository's **Actions** tab.
+The workflow at `.github/workflows/android-build.yml` builds an APK after each push to `main`, or when started manually from the repository's **Actions** tab. It uses a pinned Ubuntu 22.04 runner and GameCI Unity Builder v4.
 
 1. Activate a Unity Personal license using your Unity account and the official Unity/Unity Hub workflow.
 2. In the GitHub repository, open **Settings → Secrets and variables → Actions → New repository secret**.
