@@ -30,13 +30,15 @@ The APK has not been built or device-tested in this environment because Unity an
 
 The workflow at `.github/workflows/android-build.yml` builds an APK after each push to `main`, or when started manually from the repository's **Actions** tab. It uses a pinned Ubuntu 22.04 runner and GameCI Unity Builder v4.
 
-1. Activate a Unity Personal license using your Unity account and the official Unity/Unity Hub workflow.
+1. You do not need to install the Unity Editor to build on GitHub Actions. For a Unity Personal license, use Unity Hub on any computer to activate your Unity account and create the `.ulf` license file. Installing Unity Hub alone is enough; the editor itself can remain installed only on the GitHub runner.
 2. In the GitHub repository, open **Settings → Secrets and variables → Actions → New repository secret**.
-3. Add `UNITY_LICENSE` with the complete contents of your Unity `.ulf` license file. Do not commit the license file or put Unity credentials in workflow YAML.
+3. Add these repository secrets: `UNITY_LICENSE` with the complete contents of the `.ulf` file, `UNITY_EMAIL` with your Unity account email, and `UNITY_PASSWORD` with your Unity account password. Do not commit the license file or put credentials in workflow YAML.
 4. Open **Actions → Build Unity Android APK → Run workflow**, or push a change to `main`.
 5. Download `agricultural-game-apk` from the completed workflow run's **Artifacts** section.
 
-This workflow intentionally does not use `UNITY_EMAIL` or `UNITY_PASSWORD`; the license file secret is sufficient for GameCI's Unity activation. GitHub Actions cannot build until a valid license secret is configured. Check the Unity license and GameCI documentation for current Personal-license activation requirements.
+If you do not have a computer with Unity Hub, ask someone you trust to activate your Unity Personal license in Unity Hub and provide you the generated `.ulf` file securely; the license can be used by a build running on another operating system. Never share the `.ulf` file or Unity credentials in chat or commit them to the repository.
+
+See the [official GameCI activation guide](https://game.ci/docs/github/activation/) for current license setup instructions.
 
 ## MVP scope
 
