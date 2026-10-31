@@ -1,0 +1,47 @@
+name: Build Unity Android APK
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: android-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@v1
+        with:
+          tool-cache: false
+
+      - name: Build with Unity
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          targetPlatform: Android
+          buildsPath: build
+          buildName: HappyHenRanch
+          androidAppBundle: false
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: agricultural-game-apk
+          path: build/Android/*.apk
+          if-no-files-found: error
+          retention-days: 14
